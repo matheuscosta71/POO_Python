@@ -27,12 +27,16 @@ class Restaurante:
         self._ativo = not self._ativo
         
     def receber_avaliacao(self, cliente, nota):
+        while nota < 0 or nota > 5:
+            print('Nota inválida. Deve ser entre 0 e 5.')
+            nota = int(input('Insira uma nota válida: '))
         avaliacao_nova = avaliacao(cliente, nota)
         self._avaliacao.append(avaliacao_nova)
+    
     
     @property
     def media_avaliacoes(self):
         if not self._avaliacao:
-            return 0
+            return "ainda não há avaliações"
         total = sum(avaliacao.nota for avaliacao in self._avaliacao)
         return round(total / len(self._avaliacao),1)
